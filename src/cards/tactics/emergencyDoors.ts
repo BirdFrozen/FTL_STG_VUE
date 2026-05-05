@@ -1,0 +1,2 @@
+import type { CardDefinition } from '../types'
+export default { id:'emergency-doors', name:'应急隔离门', type:'tactic', text:'当氧气降低时，氧气损失-1。', onMessage:(ctx, card, msg)=>{ if(msg.type!=='OxygenReduced') return []; const roomId=msg.targetId; const room=roomId&&(ctx.state.ships.player.rooms[roomId]||ctx.state.ships.enemy.rooms[roomId]); if(!room) return []; return [{type:'SetRoomOxygen',payload:{roomId:room.id,value:room.oxygen+1}},{type:'AddLog',payload:{text:`应急隔离门减少 ${room.name} 的氧气损失`}}] } } satisfies CardDefinition
